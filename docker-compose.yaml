@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  openttd:
+    container_name: openttd
+    env_file:
+      - .env
+    build:
+      context: ./image
+      args:
+        - VERSION=${VERSION}
+        - OPENGFX_VERSION=${OPENGFX_VERSION}
+    image: openttd:latest
+    volumes:
+      - ./config/openttd:/root/.config/openttd
+      - ./data/openttd:/root/.local/share/openttd
+      - ./data/supervisor:/etc/supervisor/conf.d
+      - ./logs/openttd:/var/log/openttd
+      - ./logs/supervisor:/var/log/supervisor
+    ports:
+      - ${PORT}:3979
