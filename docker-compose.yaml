@@ -3,6 +3,7 @@ version: '3'
 services:
   openttd:
     container_name: openttd
+    platform: linux/amd64
     env_file:
       - .env
     build:

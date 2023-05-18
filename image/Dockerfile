@@ -44,10 +44,14 @@ RUN echo "[supervisord]" >> /etc/supervisor/supervisord.conf && \
     echo "nodaemon = true" >> /etc/supervisor/supervisord.conf && \
     echo "user = root" >> /etc/supervisor/supervisord.conf
 
-# Install Composer
-RUN curl -sLO https://cdn.openttd.org/openttd-releases/${VERSION}/openttd-${VERSION}-linux-ubuntu-focal-amd64.deb && \
-    dpkg -i openttd-${VERSION}-linux-ubuntu-focal-amd64.deb && \
-    rm openttd-${VERSION}-linux-ubuntu-focal-amd64.deb
+# Install 
+RUN mkdir -p /usr/share/games/openttd/ && \
+    cd /usr/share/games/openttd/ && \
+    curl -sLO https://cdn.openttd.org/openttd-releases/${VERSION}/openttd-${VERSION}-linux-generic-amd64.tar.xz && \
+    tar -xf openttd-${VERSION}-linux-generic-amd64.tar.xz && \
+    cp -r openttd-${VERSION}-linux-generic-amd64/* . && \
+    rm -rf openttd-${VERSION}-linux-generic-amd64 && \
+    rm openttd-${VERSION}-linux-generic-amd64.tar.xz
 
     ## Download GFX and install
 RUN mkdir -p /usr/share/games/openttd/baseset/ && \
